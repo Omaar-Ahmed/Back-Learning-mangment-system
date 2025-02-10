@@ -3,7 +3,7 @@ import * as userClerkController from './controller/userClerk'
 const router = Router();
 
 
-router.post("/createcourse", userClerkController.updateUser);
+router.put("/createcourse/:userId", userClerkController.updateUser);
 
 
 export default router
