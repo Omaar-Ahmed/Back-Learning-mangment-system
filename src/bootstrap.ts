@@ -5,8 +5,7 @@ import morgan from 'morgan';
 import { Express } from 'express';
 /* Routers Import */
 import CoursesRouter from './modules/Courses/Courses.router'
-
-
+import UserSettingsRouter from './modules/UserClerk/userClerk.router'
 
 
 const bootstarp = (app: Express, express: typeof import("express")) => {
@@ -21,7 +20,8 @@ const bootstarp = (app: Express, express: typeof import("express")) => {
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cors())
     app.use("/api/courses", CoursesRouter)
+    app.use("/api/userSettings", UserSettingsRouter)
 
 }
 
-export default bootstarp ;
+export default bootstarp;
