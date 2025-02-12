@@ -8,37 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCourse = exports.listCourses = void 0;
-const courseModel_1 = __importDefault(require("../../../../DB/models/courseModel"));
-const listCourses = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { category } = req.query;
+exports.updateUser = void 0;
+const index_1 = require("../../../index");
+const updateUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId } = req.params;
+    const userData = req.body;
     try {
-        const courses = category && category !== "all"
-            ? yield courseModel_1.default.scan("category").eq(category).exec()
-            : yield courseModel_1.default.scan().exec();
-        res.json({ message: "Done", data: courses });
+        const user = yield index_1.clerkClient.users.updateUserMetadata(userId, {
+            publicMetadata: {
+                userType: userData.publicMetadata.userType,
+                settings: userData.publicMetadata.settings
+            }
+        });
+        res.json({ message: "User Updated Successfully", data: user });
     }
     catch (error) {
         res.status(500).json({ message: "Error", error });
     }
 });
-exports.listCourses = listCourses;
-const getCourse = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { courseId } = req.params;
-    try {
-        const course = yield courseModel_1.default.get(courseId);
-        if (!course) {
-            res.status(404).json({ message: "Course not found" });
-            return;
-        }
-        res.json({ message: "Done", data: course });
-    }
-    catch (error) {
-        res.status(500).json({ message: "Error", error });
-    }
-});
-exports.getCourse = getCourse;
+exports.updateUser = updateUser;

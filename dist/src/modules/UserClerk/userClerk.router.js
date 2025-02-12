@@ -36,5 +36,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const userClerkController = __importStar(require("./controller/userClerk"));
 const router = (0, express_1.Router)();
-router.post("/createcourse", userClerkController.check);
+router.put("/:userId", userClerkController.updateUser);
 exports.default = router;

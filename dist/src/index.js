@@ -36,13 +36,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.clerkClient = void 0;
 const express_1 = __importDefault(require("express"));
 const bootstrap_1 = __importDefault(require("./bootstrap"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const dynamoose = __importStar(require("dynamoose"));
+const express_2 = require("@clerk/express");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.port || 5000;
+exports.clerkClient = (0, express_2.createClerkClient)({
+    secretKey: process.env.CLERK_SECRET_KEY,
+});
 (0, bootstrap_1.default)(app, express_1.default);
 const isProduction = process.env.Node_ENV === "production";
 if (!isProduction) {
