@@ -11,6 +11,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const Courses_router_1 = __importDefault(require("./modules/Courses/Courses.router"));
 const userClerk_router_1 = __importDefault(require("./modules/UserClerk/userClerk.router"));
 const express_1 = require("@clerk/express");
+const transactions_router_1 = __importDefault(require("./modules/Transactions/transactions.router"));
 const bootstarp = (app, express) => {
     app.use(express.json());
     app.use((0, helmet_1.default)());
@@ -24,5 +25,6 @@ const bootstarp = (app, express) => {
     app.use((0, express_1.clerkMiddleware)());
     app.use("/api/courses", Courses_router_1.default);
     app.use("/api/userSettings", (0, express_1.requireAuth)(), userClerk_router_1.default);
+    app.use("/api/transactions", (0, express_1.requireAuth)(), transactions_router_1.default);
 };
 exports.default = bootstarp;

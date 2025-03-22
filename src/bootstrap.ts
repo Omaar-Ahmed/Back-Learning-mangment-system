@@ -7,7 +7,7 @@ import { Express } from 'express';
 import CoursesRouter from './modules/Courses/Courses.router'
 import UserSettingsRouter from './modules/UserClerk/userClerk.router'
 import { clerkMiddleware, requireAuth } from '@clerk/express';
-
+import TransactionRouter from './modules/Transactions/transactions.router'
 
 const bootstarp = (app: Express, express: typeof import("express")) => {
     app.use(express.json());
@@ -23,6 +23,7 @@ const bootstarp = (app: Express, express: typeof import("express")) => {
     app.use(clerkMiddleware())
     app.use("/api/courses", CoursesRouter)
     app.use("/api/userSettings", requireAuth(), UserSettingsRouter)
+    app.use("/api/transactions", requireAuth(), TransactionRouter)
 }
 
 export default bootstarp;
